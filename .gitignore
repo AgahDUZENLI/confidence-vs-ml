@@ -1,0 +1,13 @@
+# data (license: do not share)
+data/
+*.zip
+*.csv
+*.parquet
+
+# Python and Jupyter junk
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+
+# Mac
+.DS_Store
