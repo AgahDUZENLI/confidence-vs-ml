@@ -44,7 +44,6 @@ data/
 
 If the files are already there, the script does nothing.
 
-*
 ## Data license
 
 The Eedi data is licensed CC BY-NC-ND 4.0. **Do not commit or share the data files.** `data/` is in `.gitignore`, so everyone downloads their own copy with the script above.
