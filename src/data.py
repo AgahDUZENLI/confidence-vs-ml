@@ -11,7 +11,8 @@ DATA = Path(__file__).resolve().parent.parent / "data"
 
 
 def topic_at_level(ids, level, level_of):
-    """Return the first topic in `ids` at the given level (some questions have two)."""
+    """Return the first topic in `ids` at the requested level."""
+    """"""
     for i in ids:
         if level_of[i] == level:
             return i
@@ -30,7 +31,7 @@ def load_data():
     # 2. SubjectId is text like "[3, 71, 98, 209]". Turn it into a real list.
     questions["SubjectId"] = questions["SubjectId"].apply(ast.literal_eval)
 
-    # 3. Give every question one skill at level 2 and one at level 3
+    # 3. Give every question one skill at each level (0-3)
     level_of = dict(zip(subjects["SubjectId"], subjects["Level"]))
     questions["skill_L0"] = questions["SubjectId"].apply(lambda ids: topic_at_level(ids, 0, level_of))
     questions["skill_L1"] = questions["SubjectId"].apply(lambda ids: topic_at_level(ids, 1, level_of))
@@ -56,14 +57,14 @@ def split_students(df, seed=42, train=0.70, val=0.15):
     All answers from one student stay in the same split, so the test set is
     made of new students. The fixed seed gives everyone the same split.
     """
-    # 1. The list of studnets, in a fixed order
+    # 1. The list of students, in a fixed order
     users = np.sort(df["UserId"].unique())
 
     # 2. Shuffle them
     rng = np.random.default_rng(seed)
     users = rng.permutation(users)
 
-    #  3. Cut into three pieces
+    # 3. Cut into three pieces
     n = len(users)
     n_train = int(n * train)
     n_val = int(n * val)
